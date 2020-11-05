@@ -1,0 +1,65 @@
+.zaglavie {
+    color: black;
+    font-family: 'Times New Roman', Times, serif; /* Гарнитура текста */ 
+    font-size: 250%; /* Размер шрифта в процентах */ 
+}
+
+.boxClose {
+    display: table-cell;
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    background: white;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.boxMarker {
+    cursor: default;
+    display: table-cell;
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    background: orange;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.boxOpen {
+    cursor: default;
+    display: table-cell;
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    background: red;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.boxBomb {
+    cursor: default;
+    display: table-cell;
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    background: red;
+    text-align: center;
+    vertical-align: middle;
+}
+.boxEmpty {
+    cursor: default;
+    display: table-cell;
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    background: greenyellow;
+    text-align: center;
+    vertical-align: middle;
+}
+
+::selection {
+    background: transparent;
+ }
+ ::-moz-selection {
+    background: transparent;
+ }
