@@ -5,8 +5,8 @@
 
 .zaglavie {
     color: black;
-    font-family: 'Times New Roman', Times, serif; /* Гарнитура текста */ 
-    font-size: 250%; /* Размер шрифта в процентах */ 
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 250%;
 }
 
 .boxClose {

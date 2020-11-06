@@ -1,9 +1,6 @@
 const $poligon = document.getElementById('PoleMin')
 const $timeSectndomer = document.getElementById('time')
-const $zapZon = document.getElementById('kolBomb')
-
-
-
+const $zapZon = document.getElementById('kolOpasnMest')
 
 
 var time = 0
@@ -25,14 +22,20 @@ var interval = setInterval(function() {
 
 //console.log('q2werty')
 
-// const vertical = 16
 // const gorizont = 30
+// const vertical = 16
 
-const vertical = 11
-const gorizont = 15
+//  const gorizont = 30
+//  const vertical = 16
+//  const kolMin = 100
+
+ gorizont = +prompt('gorizont', '')
+ vertical = +prompt('vertik', '')
+ kolMin = +prompt('kolih Min', '')
+
+
 const kolVsehYheek = vertical * gorizont
 
-const kolMin = 20
 
 $zapZon.innerHTML = kolMin
 
@@ -107,7 +110,7 @@ $poligon.addEventListener('contextmenu', (event) => {
 
     if(+$zapZon.innerHTML == 0 && $poligon.innerHTML.indexOf('boxClose') == -1) {
         alert('WINNER')
-        window.location.reload();
+        !window.location.reload();
     }
 
 })
@@ -137,14 +140,40 @@ function openKletky(tohkaProv) {
                 myClickKletka.innerHTML = kolRydom
 
                 if(kolRydom == 0) {
-                    if(proverkaYheiki(koordin - gorizont)) openKletky(koordin - gorizont)
-                    if(proverkaYheiki(koordin + gorizont)) openKletky(koordin + gorizont)
-                    if(proverkaYheiki(koordin - 1)) openKletky(koordin - 1)
-                    if(proverkaYheiki(koordin + 1)) openKletky(koordin + 1)
-                    if(proverkaYheiki(koordin - gorizont - 1)) openKletky(koordin - gorizont - 1)
-                    if(proverkaYheiki(koordin - gorizont + 1)) openKletky(koordin - gorizont + 1)
-                    if(proverkaYheiki(koordin + gorizont - 1)) openKletky(koordin + gorizont - 1)
-                    if(proverkaYheiki(koordin + gorizont + 1)) openKletky(koordin + gorizont + 1)
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////
+
+if(proverkaYheiki(koordin - gorizont - 1) && (koordin - gorizont - 1) % gorizont != 0) openKletky(koordin - gorizont - 1); if(proverkaYheiki(koordin - gorizont)) openKletky(koordin - gorizont); if(proverkaYheiki(koordin - gorizont + 1) && (koordin - gorizont + 1) % gorizont != 1) openKletky(koordin - gorizont + 1);
+
+if(proverkaYheiki(koordin - 1) && (koordin - 1) % gorizont != 0) openKletky(koordin - 1); /*******************************************************************************/if(proverkaYheiki(koordin + 1) && (koordin + 1) % gorizont != 1) openKletky(koordin + 1);
+
+if(proverkaYheiki(koordin + gorizont - 1) && (koordin + gorizont - 1) % gorizont != 0) openKletky(koordin + gorizont - 1); if(proverkaYheiki(koordin + gorizont)) openKletky(koordin + gorizont); if(proverkaYheiki(koordin + gorizont + 1) && (koordin + gorizont + 1) % gorizont != 1) openKletky(koordin + gorizont + 1);
+
+////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+                    // if(proverkaYheiki(koordin - gorizont)) openKletky(koordin - gorizont);
+                    // if(proverkaYheiki(koordin + gorizont)) openKletky(koordin + gorizont);
+                    // if(proverkaYheiki(koordin - 1)) openKletky(koordin - 1);
+                    // if(proverkaYheiki(koordin + 1)) openKletky(koordin + 1);
+                    // if(proverkaYheiki(koordin - gorizont - 1)) openKletky(koordin - gorizont - 1);
+                    // if(proverkaYheiki(koordin - gorizont + 1)) openKletky(koordin - gorizont + 1);
+                    // if(proverkaYheiki(koordin + gorizont - 1)) openKletky(koordin + gorizont - 1);
+                    // if(proverkaYheiki(koordin + gorizont + 1)) openKletky(koordin + gorizont + 1);
                 }
             }
         }
@@ -152,7 +181,7 @@ function openKletky(tohkaProv) {
 }
 
 function proverkaYheiki(koordinata) {
-    if(koordinata >= 0 && koordinata <= kolVsehYheek && koordinata % gorizont != 0)
+    if(koordinata >= 0 && koordinata <= kolVsehYheek && koordinata)// % gorizont != 0
         if(document.getElementById(koordinata).className == 'boxClose')
             return true;
     return false
@@ -162,21 +191,44 @@ function lokator(tohkaProv) {
     let koordin = +tohkaProv + 0
     let kolBomb = 0
 
-    if(koorMin.indexOf(koordin - gorizont) != -1) kolBomb++
 
 
 
 
 
-    if(koorMin.indexOf(koordin + gorizont) != -1) kolBomb++
 
-    if(koorMin.indexOf(koordin - 1) != -1 && koordin - 1 % gorizont != 1) kolBomb++
-    if(koorMin.indexOf(koordin + 1) != -1) kolBomb++//// && koordin + 1 != 0
 
-    if(koorMin.indexOf(koordin - gorizont - 1) != -1 && koordin - gorizont - 1 != 1) kolBomb++
-    if(koorMin.indexOf(koordin - gorizont + 1) != -1) kolBomb++////// && koordin - gorizont + 1 != 0
-    if(koorMin.indexOf(koordin + gorizont - 1) != -1 && koordin + gorizont - 1 != 1) kolBomb++
-    if(koorMin.indexOf(koordin + gorizont + 1) != -1) kolBomb++////// && koordin + gorizont + 1 != 0
+
+/////////////////////////////////////////////////
+
+
+
+if(koorMin.indexOf(koordin - gorizont - 1) != -1 && (koordin - gorizont - 1) % gorizont != 0) kolBomb++;    if(koorMin.indexOf(koordin - gorizont) != -1) kolBomb++;    if(koorMin.indexOf(koordin - gorizont + 1) != -1 && (koordin - gorizont + 1) % gorizont != 1) kolBomb++
+
+if(koorMin.indexOf(koordin - 1) != -1 && (koordin - 1) % gorizont != 0) kolBomb++;/***********************************************************************************/ if(koorMin.indexOf(koordin + 1) != -1 && (koordin + 1) % gorizont != 1) kolBomb++;
+
+if(koorMin.indexOf(koordin + gorizont - 1) != -1 && (koordin + gorizont - 1) % gorizont != 0) kolBomb++;   if(koorMin.indexOf(koordin + gorizont) != -1) kolBomb++;    if(koorMin.indexOf(koordin + gorizont + 1) != -1 && (koordin + gorizont + 1) % gorizont != 1) kolBomb++;
+
+
+/////////////////////////////////////////////////
+
+
+
+
+
+
+    // if(koorMin.indexOf(koordin - gorizont) != -1) kolBomb++//vverhy
+    // if(koorMin.indexOf(koordin + gorizont) != -1) kolBomb++//vnizy
+
+
+
+    // if(koorMin.indexOf(koordin - 1) != -1 && koordin - 1 % gorizont != 1) kolBomb++ //levo
+    // if(koorMin.indexOf(koordin + 1) != -1) kolBomb++//// && koordin + 1 != 0 //pravo
+
+    // if(koorMin.indexOf(koordin - gorizont - 1) != -1 && koordin - gorizont - 1 != 1) kolBomb++
+    // if(koorMin.indexOf(koordin - gorizont + 1) != -1) kolBomb++////// && koordin - gorizont + 1 != 0
+    // if(koorMin.indexOf(koordin + gorizont - 1) != -1 && koordin + gorizont - 1 != 1) kolBomb++
+    // if(koorMin.indexOf(koordin + gorizont + 1) != -1) kolBomb++////// && koordin + gorizont + 1 != 0
 
 
 
