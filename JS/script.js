@@ -1,13 +1,41 @@
 const $poligon = document.getElementById('PoleMin')
+const $timeSectndomer = document.getElementById('time')
+const $zapZon = document.getElementById('kolBomb')
 
+
+
+
+
+var time = 0
+var interval = setInterval(function() {
+
+    
+    //$time.textContent = (time + 0.1).toFixed(1)
+    time += 1
+    $timeSectndomer.innerHTML = (time).toFixed(0)
+  }, 1000)
+
+
+
+
+
+
+
+
+
+//console.log('q2werty')
 
 // const vertical = 16
 // const gorizont = 30
 
-const vertical = 8
-const gorizont = 8
+const vertical = 11
+const gorizont = 15
+const kolVsehYheek = vertical * gorizont
 
-const kolMin = 10
+const kolMin = 20
+
+$zapZon.innerHTML = kolMin
+
 let kolRydom = 8
 const vzriv = '*'
 const flag = '#'
@@ -43,6 +71,7 @@ for(var nomLine = 0; nomLine < vertical; nomLine++) {
 
 
 $poligon.addEventListener('click', (event) => {
+    console.log('myClick', event.target.id)
     if(event.target.className == 'boxClose') {
 
         openKletky(event.target.id)
@@ -61,7 +90,9 @@ $poligon.addEventListener('contextmenu', (event) => {
 
     if(event.target.className == 'boxClose') {
 
-    console.log('myClick', event.target.id)
+    $zapZon.innerHTML = (+$zapZon.innerHTML - 1).toString()
+
+    console.log('myRigthClick', event.target.id)
 
     //var myClassName = event.target.className;
 
@@ -69,9 +100,15 @@ $poligon.addEventListener('contextmenu', (event) => {
     event.target.setAttribute('class', 'boxMarker')
     event.target.innerHTML = flag
     } else if(event.target.className == 'boxMarker') {
-            event.target.setAttribute('class', 'boxClose')
-            event.target.innerHTML = ''
+        $zapZon.innerHTML = (+$zapZon.innerHTML + 1).toString()
+        event.target.setAttribute('class', 'boxClose')
+        event.target.innerHTML = ''
         }
+
+    if(+$zapZon.innerHTML == 0 && $poligon.innerHTML.indexOf('boxClose') == -1) {
+        alert('WINNER')
+        window.location.reload();
+    }
 
 })
 
@@ -81,36 +118,67 @@ $poligon.addEventListener('contextmenu', (event) => {
 
 
 function openKletky(tohkaProv) {
-
     let koordin = +tohkaProv + 0
-    let myClickKletka = document.getElementById(koordin)
-    
-    if(koorMin.indexOf(koordin) != -1) {
-        console.log('BOOM')
-        myClickKletka.setAttribute('class', 'boxBomb')
-        myClickKletka.innerHTML = vzriv
-    } else {
-        kolRydom = lokator(koordin)////////
-        myClickKletka.setAttribute('class', 'boxEmpty')
-        myClickKletka.innerHTML = kolRydom
+
+    if(koordin >= 0 && koordin <= kolVsehYheek) {
+        let myClickKletka = document.getElementById(koordin)
+
+        if(myClickKletka.className == 'boxClose') {
+            
+            if(koorMin.indexOf(koordin) != -1) {
+                console.log('BOOM')
+                myClickKletka.setAttribute('class', 'boxBomb')
+                myClickKletka.innerHTML = vzriv
+                alert('BOOM')
+                window.location.reload();
+            } else {
+                myClickKletka.setAttribute('class', 'boxEmpty')
+                kolRydom = lokator(koordin)////////
+                myClickKletka.innerHTML = kolRydom
+
+                if(kolRydom == 0) {
+                    if(proverkaYheiki(koordin - gorizont)) openKletky(koordin - gorizont)
+                    if(proverkaYheiki(koordin + gorizont)) openKletky(koordin + gorizont)
+                    if(proverkaYheiki(koordin - 1)) openKletky(koordin - 1)
+                    if(proverkaYheiki(koordin + 1)) openKletky(koordin + 1)
+                    if(proverkaYheiki(koordin - gorizont - 1)) openKletky(koordin - gorizont - 1)
+                    if(proverkaYheiki(koordin - gorizont + 1)) openKletky(koordin - gorizont + 1)
+                    if(proverkaYheiki(koordin + gorizont - 1)) openKletky(koordin + gorizont - 1)
+                    if(proverkaYheiki(koordin + gorizont + 1)) openKletky(koordin + gorizont + 1)
+                }
+            }
+        }
     }
 }
 
+function proverkaYheiki(koordinata) {
+    if(koordinata >= 0 && koordinata <= kolVsehYheek && koordinata % gorizont != 0)
+        if(document.getElementById(koordinata).className == 'boxClose')
+            return true;
+    return false
+}
 
-let lokator = function(tohkaProv) {
+function lokator(tohkaProv) {
     let koordin = +tohkaProv + 0
     let kolBomb = 0
 
     if(koorMin.indexOf(koordin - gorizont) != -1) kolBomb++
+
+
+
+
+
     if(koorMin.indexOf(koordin + gorizont) != -1) kolBomb++
 
-    if(koorMin.indexOf(koordin - 1) != -1) kolBomb++
-    if(koorMin.indexOf(koordin + 1) != -1) kolBomb++
+    if(koorMin.indexOf(koordin - 1) != -1 && koordin - 1 % gorizont != 1) kolBomb++
+    if(koorMin.indexOf(koordin + 1) != -1) kolBomb++//// && koordin + 1 != 0
 
-    if(koorMin.indexOf(koordin - gorizont - 1) != -1) kolBomb++
-    if(koorMin.indexOf(koordin - gorizont + 1) != -1) kolBomb++
-    if(koorMin.indexOf(koordin + gorizont - 1) != -1) kolBomb++
-    if(koorMin.indexOf(koordin + gorizont + 1) != -1) kolBomb++
+    if(koorMin.indexOf(koordin - gorizont - 1) != -1 && koordin - gorizont - 1 != 1) kolBomb++
+    if(koorMin.indexOf(koordin - gorizont + 1) != -1) kolBomb++////// && koordin - gorizont + 1 != 0
+    if(koorMin.indexOf(koordin + gorizont - 1) != -1 && koordin + gorizont - 1 != 1) kolBomb++
+    if(koorMin.indexOf(koordin + gorizont + 1) != -1) kolBomb++////// && koordin + gorizont + 1 != 0
+
+
 
     return kolBomb
 }
