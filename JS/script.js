@@ -14,24 +14,23 @@ var interval = setInterval(function() {
 
 
 
-
-
-
-
-
-
-//console.log('q2werty')
-
-// const gorizont = 30
-// const vertical = 16
-
 //  const gorizont = 30
 //  const vertical = 16
-//  const kolMin = 100
+//  const kolMin = 9
 
- gorizont = +prompt('gorizont', '')
- vertical = +prompt('vertik', '')
- kolMin = +prompt('kolih Min', '')
+//  const gorizont = 16
+//  const vertical = 16
+//  const kolMin = 40
+
+ const gorizont = 9
+ const vertical = 9
+ const kolMin = 10
+
+
+
+//  gorizont = +prompt('gorizont', '')
+//  vertical = +prompt('vertik', '')
+//  kolMin = +prompt('kolih Min', '')
 
 
 const kolVsehYheek = vertical * gorizont
@@ -45,18 +44,9 @@ const flag = '#'
 
 let slyhkoordin;
 
-const koorMin = new Array(kolMin);
 
-for (var i = 0; i < koorMin.length; i++) {
-    do{
-        slyhkoordin = getRandomIntInclusive(1, (vertical - 1) * (gorizont) + (gorizont));
-    } while(koorMin.indexOf(slyhkoordin) != -1)
-    
-    koorMin[i] = slyhkoordin
-}
-console.log('mina', koorMin)
 
-///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////Отрисовка поля
 for(var nomLine = 0; nomLine < vertical; nomLine++) {
 
     $poligon.insertAdjacentHTML('beforeend', '<div>')
@@ -69,21 +59,96 @@ for(var nomLine = 0; nomLine < vertical; nomLine++) {
 
 }
 ////////////////////////////////////////////////////////////////////////////////////
+let oneClick = true
+const koorMin = new Array(kolMin);
+    $poligon.addEventListener('click', (event) => {
+    if(oneClick) {
+        console.log('One click', event.target.id)
+        if(event.target.className == 'boxClose') {
+
+///////////////////////////////////////////////////////////////////////////////Подбор случайных координат
+
+
+for (var i = 0; i < koorMin.length; i++) {
+    do{
+        slyhkoordin = getRandomIntInclusive(1, (vertical - 1) * (gorizont) + (gorizont));
+    } while(koorMin.indexOf(slyhkoordin) != -1 || (slyhkoordin == +event.target.id + 0))
+    
+    koorMin[i] = slyhkoordin
+}
+console.log('mina', koorMin)
+///////////////////////////////////////////////////////////////////////////////
+
+    
+            //openKletky(event.target.id)
+    
+            //console.log('myClick', event.target.id.split('w'), '---', +event.target.id.split('w')[0] * gorizont + (+event.target.id.split('w')[1]))
+            //console.log('myClick', event.target.id, '---', pereobrazKoorVChislo(event.target.id))
+            openKletky(event.target.id)
+
+            oneClick = false
+    
+        }
+    }    
+    })
 
 
 
+
+
+$poligon.addEventListener("mousedown", function(event) {
+    if ((event.which === 2) && (event.target.className == 'boxEmpty')) {
+
+
+        let koordin = +event.target.id + 0
+        let kolMarkerv = 0
+
+
+    /////////////////////////////////////////////////
+
+    if(prKoorYhiyki(koordin - gorizont - 1)) if(document.getElementById(koordin - gorizont - 1).className == 'boxMarker' && (koordin - gorizont - 1) % gorizont != 0) kolMarkerv++;    if(prKoorYhiyki(koordin - gorizont)) if(document.getElementById(koordin - gorizont).className == 'boxMarker') kolMarkerv++;    if(prKoorYhiyki(koordin - gorizont + 1)) if(document.getElementById(koordin - gorizont + 1).className == 'boxMarker' && (koordin - gorizont + 1) % gorizont != 1) kolMarkerv++
+
+    if(prKoorYhiyki(koordin - 1)) if(document.getElementById(koordin - 1).className == 'boxMarker' && (koordin - 1) % gorizont != 0) kolMarkerv++;/***********************************************************************************/ if(prKoorYhiyki(koordin + 1)) if(document.getElementById(koordin + 1).className == 'boxMarker' && (koordin + 1) % gorizont != 1) kolMarkerv++;
+
+    if(prKoorYhiyki(koordin + gorizont - 1)) if(document.getElementById(koordin + gorizont - 1).className == 'boxMarker' && (koordin + gorizont - 1) % gorizont != 0) kolMarkerv++;   if(prKoorYhiyki(koordin + gorizont)) if(document.getElementById(koordin + gorizont).className == 'boxMarker') kolMarkerv++;    if(prKoorYhiyki(koordin + gorizont + 1)) if(document.getElementById(koordin + gorizont + 1).className == 'boxMarker' && (koordin + gorizont + 1) % gorizont != 1) kolMarkerv++;
+
+    /////////////////////////////////////////////////
+
+    if(kolMarkerv != 0 && kolMarkerv == document.getElementById(koordin).innerHTML) {
+        
+////////////////////////////////////////////////////////////////////
+
+if(proverkaYheiki(koordin - gorizont - 1) && (koordin - gorizont - 1) % gorizont != 0) openKletky(koordin - gorizont - 1); if(proverkaYheiki(koordin - gorizont)) openKletky(koordin - gorizont); if(proverkaYheiki(koordin - gorizont + 1) && (koordin - gorizont + 1) % gorizont != 1) openKletky(koordin - gorizont + 1);
+
+if(proverkaYheiki(koordin - 1) && (koordin - 1) % gorizont != 0) openKletky(koordin - 1); /*******************************************************************************/if(proverkaYheiki(koordin + 1) && (koordin + 1) % gorizont != 1) openKletky(koordin + 1);
+
+if(proverkaYheiki(koordin + gorizont - 1) && (koordin + gorizont - 1) % gorizont != 0) openKletky(koordin + gorizont - 1); if(proverkaYheiki(koordin + gorizont)) openKletky(koordin + gorizont); if(proverkaYheiki(koordin + gorizont + 1) && (koordin + gorizont + 1) % gorizont != 1) openKletky(koordin + gorizont + 1);
+
+////////////////////////////////////////////////////////////////////
+    }
+    
+        //openKletky(koordin)
+
+
+    console.log('kolMarker = ', kolMarkerv, 'kol min', document.getElementById(koordin).innerHTML )
+
+
+}
+});
 
 $poligon.addEventListener('click', (event) => {
+    if(oneClick == false) {
     console.log('myClick', event.target.id)
-    if(event.target.className == 'boxClose') {
+        if(event.target.className == 'boxClose') {
 
-        openKletky(event.target.id)
+            openKletky(event.target.id)
 
-        //console.log('myClick', event.target.id.split('w'), '---', +event.target.id.split('w')[0] * gorizont + (+event.target.id.split('w')[1]))
-        //console.log('myClick', event.target.id, '---', pereobrazKoorVChislo(event.target.id))
+            //console.log('myClick', event.target.id.split('w'), '---', +event.target.id.split('w')[0] * gorizont + (+event.target.id.split('w')[1]))
+            //console.log('myClick', event.target.id, '---', pereobrazKoorVChislo(event.target.id))
 
 
 
+        }
     }
 
 })
@@ -143,14 +208,6 @@ function openKletky(tohkaProv) {
 
 
 
-
-
-
-
-
-
-
-
 ////////////////////////////////////////////////////////////////////
 
 if(proverkaYheiki(koordin - gorizont - 1) && (koordin - gorizont - 1) % gorizont != 0) openKletky(koordin - gorizont - 1); if(proverkaYheiki(koordin - gorizont)) openKletky(koordin - gorizont); if(proverkaYheiki(koordin - gorizont + 1) && (koordin - gorizont + 1) % gorizont != 1) openKletky(koordin - gorizont + 1);
@@ -163,21 +220,16 @@ if(proverkaYheiki(koordin + gorizont - 1) && (koordin + gorizont - 1) % gorizont
 
 
 
-
-
-
-                    // if(proverkaYheiki(koordin - gorizont)) openKletky(koordin - gorizont);
-                    // if(proverkaYheiki(koordin + gorizont)) openKletky(koordin + gorizont);
-                    // if(proverkaYheiki(koordin - 1)) openKletky(koordin - 1);
-                    // if(proverkaYheiki(koordin + 1)) openKletky(koordin + 1);
-                    // if(proverkaYheiki(koordin - gorizont - 1)) openKletky(koordin - gorizont - 1);
-                    // if(proverkaYheiki(koordin - gorizont + 1)) openKletky(koordin - gorizont + 1);
-                    // if(proverkaYheiki(koordin + gorizont - 1)) openKletky(koordin + gorizont - 1);
-                    // if(proverkaYheiki(koordin + gorizont + 1)) openKletky(koordin + gorizont + 1);
                 }
             }
         }
     }
+}
+
+function prKoorYhiyki(koordinata) {
+    if(koordinata >= 0 && koordinata <= kolVsehYheek)// % gorizont != 0
+        return true
+    return false
 }
 
 function proverkaYheiki(koordinata) {
@@ -190,12 +242,6 @@ function proverkaYheiki(koordinata) {
 function lokator(tohkaProv) {
     let koordin = +tohkaProv + 0
     let kolBomb = 0
-
-
-
-
-
-
 
 
 
@@ -213,25 +259,6 @@ if(koorMin.indexOf(koordin + gorizont - 1) != -1 && (koordin + gorizont - 1) % g
 /////////////////////////////////////////////////
 
 
-
-
-
-
-    // if(koorMin.indexOf(koordin - gorizont) != -1) kolBomb++//vverhy
-    // if(koorMin.indexOf(koordin + gorizont) != -1) kolBomb++//vnizy
-
-
-
-    // if(koorMin.indexOf(koordin - 1) != -1 && koordin - 1 % gorizont != 1) kolBomb++ //levo
-    // if(koorMin.indexOf(koordin + 1) != -1) kolBomb++//// && koordin + 1 != 0 //pravo
-
-    // if(koorMin.indexOf(koordin - gorizont - 1) != -1 && koordin - gorizont - 1 != 1) kolBomb++
-    // if(koorMin.indexOf(koordin - gorizont + 1) != -1) kolBomb++////// && koordin - gorizont + 1 != 0
-    // if(koorMin.indexOf(koordin + gorizont - 1) != -1 && koordin + gorizont - 1 != 1) kolBomb++
-    // if(koorMin.indexOf(koordin + gorizont + 1) != -1) kolBomb++////// && koordin + gorizont + 1 != 0
-
-
-
     return kolBomb
 }
 
@@ -243,48 +270,5 @@ function getRandomIntInclusive(min, max) {
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-// var pereobrazKoorVChislo = function(strId) {
-//     let nomer = +strId.split('w')[0] * gorizont + (+strId.split('w')[1] * 1)
-//     return nomer
-// }
-
-
-
-
-
-// var razbivka = function(strId) {
-
-//     var hisl = strId.split('w')
-
-//     return hisl
-// }
-
-
-
-// for (var i = 0; i < vertical; i++) {
-//     for(var j = 0; j < gorizont)
-//     koorMin[i] = new Array(gorizont);
-// }
-
-
-// // koorMin.forEach((elem) => {
-// //     elem = new Array(gorizont);
-// // })
-
-
-
-// console.log(koorMin);
 
 
