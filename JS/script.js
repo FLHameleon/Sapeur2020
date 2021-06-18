@@ -6,11 +6,10 @@ const $zapZon = document.getElementById('kolOpasnMest')
 var time = 0
 var interval = setInterval(function() {
 
-    
     //$time.textContent = (time + 0.1).toFixed(1)
     time += 1
     $timeSectndomer.innerHTML = (time).toFixed(0)
-  }, 1000)
+}, 1000)
 
 
 
@@ -22,15 +21,15 @@ var interval = setInterval(function() {
 //  const vertical = 16
 //  const kolMin = 40
 
- const gorizont = 9
- const vertical = 9
- const kolMin = 10
+//  const gorizont = 9
+//  const vertical = 9
+//  const kolMin = 10
 
 
 
-//  gorizont = +prompt('gorizont', '')
-//  vertical = +prompt('vertik', '')
-//  kolMin = +prompt('kolih Min', '')
+ gorizont = +prompt('1/3-> Сколько клеток должно быть по горизонтали ', '')
+ vertical = +prompt('2/3-> Сколько клеток должно быть по вертикали ', '')
+ kolMin = +prompt('3/3-> Сколько должно быть мин ', '')
 
 
 const kolVsehYheek = vertical * gorizont
@@ -145,7 +144,6 @@ $poligon.addEventListener('click', (event) => {
 
             //console.log('myClick', event.target.id.split('w'), '---', +event.target.id.split('w')[0] * gorizont + (+event.target.id.split('w')[1]))
             //console.log('myClick', event.target.id, '---', pereobrazKoorVChislo(event.target.id))
-
 
 
         }
@@ -267,7 +265,7 @@ function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
-  }
+}
 
 
 
